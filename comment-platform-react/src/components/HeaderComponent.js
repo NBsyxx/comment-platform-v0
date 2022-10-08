@@ -1,6 +1,5 @@
 // stateless function component
 import React from 'react';
-import PropTypes from 'prop-types';
 
 HeaderComponent.propTypes = {
     
@@ -10,8 +9,8 @@ function HeaderComponent(props) {
     return (
         <div>
             <header>
-                <nav className='navbar navbar-expand-md navbar-dark bg-dark'>
-                    <a href = "http://bettercallsong.com" className='nacbar-brand'>
+                <nav className='navbar navbar-light bg-light justify-content-center'>
+                    <a href = "http://localhost:3000" className='navbar-brand' >
                         Comment Platform
                     </a>
                 </nav>

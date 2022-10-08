@@ -8,12 +8,11 @@ FooterComponent.propTypes = {
 function FooterComponent(props) {
     return (
         <div>
-            <footer className='footer'>
+            <footer className='navbar bottom justify-content-center'>
                 <span className='text-muted'>
-                    All Rights Reserved 2022 NBSYXX
+                    All Rights Reserved 2022 @Yunxiao Song
                 </span>
             </footer>
-            
         </div>
     );
 }

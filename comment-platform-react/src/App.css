@@ -7,16 +7,8 @@
   text-align: center;
   color:white;
 }
-
 body {
-  background-image: linear-gradient(
-    to bottom,
-    #41c0c0,
-    #45c59d,
-    #76c46b,
-    #aebc36,
-    #eba912
-  );
+  color: lightgray;
   background-repeat: no-repeat;
   min-height: 100vh;
   box-sizing: border-box;
@@ -45,6 +37,10 @@ body {
 }
 .color-me {
   color: grey;
+}
+
+.icon:hover {
+  fill: #DA4567;
 }
 
 @media (min-width: 768px) {

@@ -10,14 +10,16 @@ import sys
 import os
 
 app = Flask(__name__)
-cors = CORS(app, resources={r"/": {"origins": "*"}})
+cors = CORS(app, resources={r"/": {"origins": "*"},r"/getComments": {"origins": "*"},r"/addComments": {"origins": "*"}})
+# cors = CORS(app, resources={r"/getComments": {"origins": "*"}})
+# cors = CORS(app, resources={r"/addComments": {"origins": "*"}})
 
 @cross_origin(origin='*',headers=['Content-Type','Access-Control-Allow-Origin'])
 @app.route("/getComments",methods=['GET'])
 def renderComments():
     # url = request.args.get("url",default = "*",type = str)
     # TODOS renderComments based on args only, now we want to implement add functions first
-    comments = dataAccess.readComments("upvote",3)[:10]
+    comments = dataAccess.readComments()
     response = app.response_class(
         json.dumps(comments,default=str),
         status=200,
@@ -26,8 +28,9 @@ def renderComments():
     # to allow cross origin when tested on local server
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
-
-@app.route("/addComments", methods=["GET","POST"])
+    
+@cross_origin(origin='*',headers=['Content-Type','Access-Control-Allow-Origin'])
+@app.route("/addComments", methods=["POST"])
 def addComments():
     # Post a json to server
     content_type = request.headers.get('Content-Type')
@@ -37,12 +40,16 @@ def addComments():
         return 'Content-Type not supported!'
     commentContent = data ["commentContent"]
     userid = data ["userid"]
-    post = dataAccess.addComment(userid,commentContent)
+    userip = data["ip"]
+    post = dataAccess.addComment(userid,commentContent,userip)
+    print("post is ",post)
     response = app.response_class(
         json.dumps(post,default=str),
         status=200,
         mimetype='application/json'
     )
+    # to allow cross origin when tested on local server
+    response.headers.add('Access-Control-Allow-Origin',"*")
     return response
 
 @app.route("/addUrl",methods=["POST"])

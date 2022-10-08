@@ -5,7 +5,8 @@ import FooterComponent from './components/FooterComponent';
 import HeaderComponent from './components/HeaderComponent';
 import ListCommentComponent from './components/ListCommentComponent';
 import AddCommentComponent from './components/AddCommentComponent';
-
+import ExternalPageComponent from './components/ExternalPageComponent';
+import AddCommentBottonComponent from './components/AddCommentBottonComponent';
 function App() {
   return (
     <div>
@@ -14,9 +15,9 @@ function App() {
         <div className='container'>
           <Routes>
             localhost:3000/
-            <Route path="/" element = {<ListCommentComponent/>}></Route>
+            <Route path="/" element = {[<ExternalPageComponent/>,<AddCommentBottonComponent/>,<ListCommentComponent/>]}></Route>
             <Route path="/comments" element = {<ListCommentComponent/>}></Route>
-            <Route path="/add-comment" element = {<AddCommentComponent/>}></Route>
+            <Route path="/add-comment" element = {[<ExternalPageComponent/>,<AddCommentComponent/>,<ListCommentComponent/>]}></Route>
           </Routes>
         </div>
 

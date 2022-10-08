@@ -15,28 +15,30 @@ server.on('request',(req,res)=>{
     const target = url.parse(targetUrl);
     console.log(target);
     const options = {
-        hostname: target.hostname,
-        port: 8080,
-        path: url.format(target),
-        method: "GET"
-    };
+        hostname: target.host,
+        port: 80,
+        path: '/',
+        agent: false  // Create a new agent just for this one request
+      };
 
     // 2.代发请求
-    const proxy = https.request(options, _res => {
+    const proxy = http.get(options, _res => {
         // 3.修改响应头
         const fieldsToRemove = ["x-frame-options", "content-security-policy"];
-        Object.keys(_res.headers).forEach(field => {
-        if (!fieldsToRemove.includes(field.toLocaleLowerCase())) {
-            res.setHeader(field, _res.headers[field]);
-        }
-        });
+        console.log("_res.headers")
+        console.log(_res.headers)
+        // Object.keys(_res.headers).forEach(field => {
+        // if (!fieldsToRemove.includes(field.toLocaleLowerCase())) {
+        //     res.setHeader(field, _res.headers[field]);
+        //     }
+        // });
         _res.pipe(res, {
         end: true
         });
     });
-    req.pipe(proxy, {
-        end: true
-    });
+    // req.pipe(proxy, {
+    //     end: true
+    // });
 })
 
 server.listen(port,()=>{
